@@ -132,11 +132,11 @@ export default function Profile({ author, social, features, researchInterests }:
                     <p>{author.title}</p>
                     
                     <p>School of Mathematics and Statistics</p>
-                    <p>Xi'an Jiaotong University</p>
+                    <p>Xi&apos;an Jiaotong University</p>
                     {/* 👇 新增：带图标的地址，并居中 👇 */}
                     <div className="flex items-center justify-center gap-1.5 text-neutral-500 mt-5">
                         <MapPinIcon className="h-4 w-4" />
-                        <span>Xi'an, China</span>
+                        <span>Xi&apos;an, China</span>
                     </div>
                 </div>
             </div>
