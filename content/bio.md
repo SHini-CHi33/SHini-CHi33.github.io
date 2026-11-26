@@ -1,0 +1,4 @@
+
+
+I am a master’s student in applied mathematics at the School of Mathematics and Statistics, [Xi'an Jiaotong University (XJTU)](https://www.xjtu.edu.cn/). My research interests include [World Action Models](), [Reinforcement Learning](), [Embodied Intelligence]() and [AI Agent]().
+

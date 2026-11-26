@@ -1,0 +1,778 @@
+
+/* ==========================================
+   Selected Publications
+   Compact academic publication layout
+   Image: 16:9
+   Left / Right: 36% / 64%
+   ========================================== */
+
+.publicationList {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0.15rem 0 1.6rem;
+}
+
+/* Publication row */
+
+.publicationEntry {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 36% minmax(0, 1fr);
+    align-items: stretch;
+    gap: 1.25rem;
+
+    width: 100%;
+    height: calc(20.25cqi + 2rem + 1px);
+    min-height: 0;
+
+    padding: 1rem 0;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.24);
+
+    transition: background-color 160ms ease;
+}
+
+.publicationEntry:hover {
+    background: rgba(148, 163, 184, 0.025);
+}
+
+.publicationEntry:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================
+   Left image - 16:9
+   ========================================== */
+
+.publicationMedia {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+
+    border: 1px solid #d5dde2;
+    border-radius: 6px;
+    background: #ffffff;
+
+    text-decoration: none;
+    isolation: isolate;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.publicationMedia img {
+    position: relative;
+    z-index: 0;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+
+    transition: transform 0.4s ease;
+}
+
+.publicationMedia:hover img {
+    transform: scale(1.025);
+}
+
+/* Left-to-right light sweep */
+
+.publicationMedia::after {
+    position: absolute;
+    z-index: 1;
+
+    top: -35%;
+    bottom: -35%;
+    left: -45%;
+
+    width: 28%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.68),
+        transparent
+    );
+
+    content: "";
+    opacity: 0;
+
+    pointer-events: none;
+    transform: skewX(-16deg);
+}
+
+.publicationMedia:hover::after,
+.publicationMedia:focus-visible::after {
+    animation: paperShine 0.72s ease-out;
+}
+
+.publicationMedia:hover,
+.publicationMedia:focus-visible {
+    border-color: #aebdca;
+    box-shadow: 0 5px 14px rgba(31, 43, 53, 0.09);
+    outline: none;
+}
+
+@keyframes paperShine {
+    0% {
+        left: -45%;
+        opacity: 0;
+    }
+
+    18% {
+        opacity: 0.7;
+    }
+
+    100% {
+        left: 120%;
+        opacity: 0;
+    }
+}
+
+/* Image placeholder */
+
+.imagePlaceholder {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    color: #64748b;
+    background: linear-gradient(135deg, #e8eef7, #f4f6fb);
+}
+
+.imagePlaceholder span {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.imagePlaceholder small {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+}
+
+/* ==========================================
+   Upper-left venue badge
+   ========================================== */
+
+.venueBadge {
+    position: absolute;
+    z-index: 4;
+
+    top: 0.5rem;
+    left: 0.5rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+
+    max-width: calc(100% - 1rem);
+    min-height: 23px;
+
+    padding: 0.22rem 0.48rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 3px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(48, 86, 115, 0.96),
+        rgba(70, 103, 128, 0.93)
+    );
+
+    color: #ffffff;
+
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    box-shadow: 0 2px 8px rgba(20, 31, 40, 0.2);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.venueBadge::before {
+    flex: 0 0 5px;
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+    background: currentColor;
+
+    content: "";
+    opacity: 0.85;
+}
+
+/* arXiv badge - soft mint green */
+
+.venueBadgePreprint {
+    /* 1. 深邃的深绿渐变（模拟下面深灰徽章的质感） */
+    background: linear-gradient(135deg, #2e5d3f, #122b1b);
+    /* 2. 文字改为带一点绿调的白，提升对比度 */
+    color: #e6f4ea;
+
+    /* 4. 外阴影制造浮空感，内阴影(inset)制造顶部高光（立体感） */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35), 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    /* 5. 给文字加一点点暗影，让文字更清晰且有嵌入感 */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    
+    /* 保持你原有的圆角和内边距（假设你有） */
+    border-radius: 6px; 
+    padding: 4px 8px; 
+    /* ...其他你原有的属性... */
+}
+.venueBadgePreprint::before {
+    background: #4b9870;
+}
+
+.venueBadgeJournal {
+    background: linear-gradient(
+        135deg,
+        rgba(44, 85, 114, 0.96),
+        rgba(65, 111, 139, 0.93)
+    );
+}
+
+.venueBadgeConference {
+    background: linear-gradient(
+        135deg,
+        rgba(81, 73, 111, 0.96),
+        rgba(108, 92, 132, 0.93)
+    );
+}
+
+/* ==========================================
+   Right-side content
+   ========================================== */
+
+.publicationContent {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    align-items: flex-start;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding-left: 0.25rem;
+}
+
+.paperDetails {
+    width: 100%;
+    min-width: 0;
+}
+
+/* ==========================================
+   Title
+   ========================================== */
+
+.paperTitle {
+    display: block;
+
+    margin: 0;
+
+    color: var(--text-primary, #111827);
+
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.38;
+    letter-spacing: 0;
+}
+
+.paperTitle a {
+    color: inherit;
+    text-decoration: none;
+
+    transition: color 160ms ease;
+}
+
+.paperTitle a:hover {
+    color: #315f81;
+}
+
+/* ==========================================
+   Authors
+   ========================================== */
+
+.paperAuthors {
+    display: block;
+
+    margin-top: 0.42rem;
+
+    color: #596579;
+
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 400;
+    line-height: 1.55;
+}
+
+.authorHighlight {
+    color: #2c4050;
+    font-weight: 700;
+}
+
+.authorCoauthor {
+    text-decoration: underline;
+    text-decoration-color: #9ca3af;
+    text-underline-offset: 3px;
+}
+
+.authorMark {
+    margin-left: 2px;
+    color: #65727c;
+    font-weight: 600;
+}
+
+/* Contribution notes */
+
+.paperNotes {
+    display: block;
+
+    margin-top: 0.14rem;
+
+    color: #929ba5;
+
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.76rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* ==========================================
+   Journal / Conference
+   ========================================== */
+
+.paperVenue {
+    display: block;
+
+    margin-top: 0.3rem;
+
+    color: #65727c;
+
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.45;
+}
+
+/* ==========================================
+   Publication links
+   Rectangular bordered buttons
+   ========================================== */
+
+.paperActions {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.25rem;
+
+    width: 100%;
+    min-width: 0;
+
+    margin-top: 0.48rem;
+    padding: 4px 1px;
+
+    overflow: visible;
+
+    /* Preserve the previous vertical adjustment */
+    transform: translateY(-8px);
+}
+
+.paperAction {
+    display: inline-flex;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+
+    height: 27px;
+    min-height: 27px;
+
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+
+    padding: 0 0.38rem;
+
+    border: 1px solid #cbd4da;
+    border-radius: 4px;
+
+    background: #f5f7f9;
+    color: #374650;
+
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1;
+
+    white-space: nowrap;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.paperAction:hover,
+.paperAction:focus-visible {
+    border-color: #9facb5;
+    background: #f1f4f6;
+    color: #17222b;
+    outline: none;
+}
+
+/* Icons */
+
+.actionIcon {
+    display: block;
+    flex: 0 0 auto;
+
+    width: 15px;
+    height: 15px;
+}
+
+.arxivIcon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+/* arXiv - soft mint green */
+
+.actionArxiv {
+    border-color: #c5dfd0;
+    background: #edf6f0;
+    color: #347653;
+}
+
+.actionArxiv:hover {
+    border-color: #9fc9af;
+    background: #e2f0e7;
+    color: #285e40;
+}
+
+/* Paper - neutral gray */
+
+.actionPaper {
+    border-color: #cbd4da;
+    background: #f5f7f9;
+    color: #374650;
+}
+
+/* PDF - soft red */
+
+.actionPdf {
+    border-color: #dcc5c5;
+    background: #faf4f4;
+    color: #8c5558;
+}
+
+.actionPdf:hover {
+    border-color: #c9a1a1;
+    background: #f5eaea;
+}
+
+/* DOI - soft blue */
+
+.actionDoi {
+    border-color: #c5d5df;
+    background: #f1f6f9;
+    color: #35647f;
+}
+
+/* GitHub - soft purple */
+
+.actionCode {
+    border-color: #d5cce3;
+    background: #f3eff8;
+    color: #695783;
+}
+
+.actionCode:hover {
+    border-color: #b9a9d0;
+    background: #eae3f3;
+    color: #514064;
+}
+
+/* GitHub stars */
+
+.githubStars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+
+    margin-left: 0.08rem;
+    padding-left: 0.25rem;
+
+    border-left: 1px solid rgba(105, 87, 131, 0.25);
+
+    color: #756b83;
+    font-size: 0.65rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.githubStarIcon {
+    display: block;
+
+    width: 11px;
+    height: 11px;
+
+    color: #b18b35;
+}
+
+/* Website - soft gold */
+
+.actionWebsite {
+    border-color: #e8d9b6;
+    background: #fbf5e8;
+    color: #94702c;
+}
+
+.actionWebsite:hover {
+    border-color: #d8c28e;
+    background: #f5ecd8;
+    color: #765820;
+}
+
+/* BibTeX - soft lavender */
+
+.actionBib {
+    border-color: #d2ccda;
+    background: #f6f4f8;
+    color: #625a76;
+
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+}
+
+.actionBib:hover {
+    border-color: #b9afc8;
+    background: #ece8f2;
+    color: #514866;
+}
+
+/* ==========================================
+   BibTeX panel
+   ========================================== */
+
+.bibtexPanel {
+    box-sizing: border-box;
+
+    width: 100%;
+    margin-top: 0.55rem;
+
+    border: 1px solid #dbe2e8;
+    border-left: 3px solid #756387;
+    border-radius: 5px;
+
+    background: #f6f8f9;
+}
+
+.bibtexHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.45rem 0.7rem 0;
+
+    color: #475569;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.bibtexPanel pre {
+    box-sizing: border-box;
+
+    max-width: 100%;
+    margin: 0;
+    padding: 0.7rem;
+
+    overflow-x: auto;
+
+    color: #2f3c46;
+
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+    font-size: 0.72rem;
+    line-height: 1.5;
+    white-space: pre;
+}
+
+.copyBib {
+    display: inline-flex;
+
+    min-height: 25px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.18rem 0.4rem;
+
+    border: 1px solid #cbd4da;
+    border-radius: 4px;
+
+    background: #ffffff;
+    color: #3f4c56;
+
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.copyBib:hover,
+.copyBib:focus-visible {
+    border-color: #756387;
+    color: #1d2730;
+    outline: none;
+}
+
+/* ==========================================
+   Tablet
+   ========================================== */
+
+@media (max-width: 850px) {
+    .publicationEntry {
+        grid-template-columns: 1fr;
+
+        height: auto;
+        min-height: 0;
+
+        gap: 0.75rem;
+        padding: 1rem 0;
+    }
+
+    .publicationMedia {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .publicationContent {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        padding-left: 0;
+    }
+
+    .paperActions {
+        margin-top: 0.5rem;
+    }
+
+    .paperTitle {
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================
+   Mobile
+   ========================================== */
+
+@media (max-width: 540px) {
+    .publicationEntry {
+        gap: 0.65rem;
+        padding: 0.9rem 0;
+    }
+
+    .publicationMedia {
+        aspect-ratio: 16 / 9;
+    }
+
+    .paperTitle {
+        font-size: 0.98rem;
+        line-height: 1.35;
+    }
+
+    .paperAuthors {
+        font-size: 0.82rem;
+    }
+
+    .paperVenue {
+        font-size: 0.78rem;
+    }
+
+    .paperActions {
+        flex-wrap: nowrap;
+        gap: 0.2rem;
+        margin-top: 0.45rem;
+    }
+
+    .paperAction {
+        height: 25px;
+        min-height: 25px;
+        padding: 0 0.32rem;
+        font-size: 0.65rem;
+    }
+
+    .actionIcon {
+        width: 13px;
+        height: 13px;
+    }
+
+    .arxivIcon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* ==========================================
+   Accessibility
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .publicationMedia::after {
+        animation: none !important;
+    }
+
+    .publicationMedia,
+    .publicationMedia img,
+    .paperAction,
+    .paperTitle a {
+        transition: none !important;
+    }
+}
