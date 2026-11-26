@@ -53,9 +53,7 @@ export default function Navigation({
     return itemsByLocale?.[resolvedLocale] || itemsByLocale?.[i18n.defaultLocale] || items;
   }, [i18n.defaultLocale, items, itemsByLocale, resolvedLocale]);
 
-  const effectiveSiteTitle = useMemo(() => {
-    return siteTitleByLocale?.[resolvedLocale] || siteTitleByLocale?.[i18n.defaultLocale] || siteTitle;
-  }, [i18n.defaultLocale, resolvedLocale, siteTitle, siteTitleByLocale]);
+  // 【这里删掉了未使用的 effectiveSiteTitle 变量，修复 ESLint 报错】
 
   useEffect(() => {
     const handleScroll = () => {

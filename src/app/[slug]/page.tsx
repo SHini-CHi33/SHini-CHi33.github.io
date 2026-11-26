@@ -51,14 +51,28 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
 }
 
 export function generateStaticParams() {
-  const config = getConfig();
-  return config.navigation
-    .filter((nav) => nav.type === 'page' && nav.target !== 'about')
-    .map((nav) => ({
-      slug: nav.target,
-    }));
-}
+  const baseConfig = getConfig();
+  const runtimeI18n = getRuntimeI18nConfig(baseConfig.i18n);
+  const locales = runtimeI18n.enabled
+    ? runtimeI18n.locales
+    : [runtimeI18n.defaultLocale];
 
+  const slugs = new Set<string>();
+
+  for (const locale of locales) {
+    const localeConfig = getConfig(locale);
+
+    for (const nav of localeConfig.navigation) {
+      if (nav.type === 'page' && nav.target !== 'about') {
+        slugs.add(nav.target);
+      }
+    }
+  }
+
+  return Array.from(slugs).map((slug) => ({
+    slug,
+  }));
+}
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const pageConfig = getPageConfig(slug) as BasePageConfig | null;
